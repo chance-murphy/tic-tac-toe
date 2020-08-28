@@ -4,7 +4,9 @@ In the project directory, you can run:
 
 ### `npm install` or `yarn install`
 
-Installs required modules.<br />
+This will install all required modules.<br />
+
+After this, you can run:
 
 ### `npm start`
 
