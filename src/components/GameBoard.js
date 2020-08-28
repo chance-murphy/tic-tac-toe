@@ -33,6 +33,8 @@ class GameBoard extends Component {
       board: board,
       xTurn: !this.state.xTurn,
     });
+
+    this.btn.removeAttribute("disabled");
   }
 
   handleRestart() {
@@ -44,6 +46,8 @@ class GameBoard extends Component {
       board: board,
       xTurn: true, 
     })
+
+    this.btn.removeAttribute("disabled");
   }
 
   handleUndo() {
@@ -53,6 +57,8 @@ class GameBoard extends Component {
       board: this.state.previousBoard,
       xTurn: !this.state.xTurn,
     });
+
+    this.btn.setAttribute("disabled", "disabled");
   }
 
   render() {
@@ -90,7 +96,7 @@ class GameBoard extends Component {
           {this.renderSquare(8)}
         </div>
         <div className="button-row">
-          <button className="game-status" onClick={() => this.handleUndo()}>Undo Move</button>
+          <button ref={btn => { this.btn = btn; }} className="game-status" onClick={() => this.handleUndo()}>Undo Move</button>
           <button className="game-status" onClick={() => this.handleRestart()}>{gameStatus}</button>
         </div>
       </div>

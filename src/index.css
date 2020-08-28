@@ -30,6 +30,18 @@ code {
   border-radius: 10px;
 }
 
+.game-status:disabled {
+  height: 50px;
+  width: 160px;
+  border: 1px solid #aaa;
+  background: #aaa;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px;
+  border-radius: 10px;
+}
+
 .board {
   width: 100vw;
   height: 100vh;
