@@ -9,11 +9,16 @@ class GameBoard extends Component {
       previousBoard: Array(9).fill(null),
       board: Array(9).fill(null),
       xTurn: true,
+      undoDisabled: true,
+      restartDisabled: true,
     }
   }
 
   renderSquare(i) {
-    return <Square value={this.state.board[i]} onClick={() => this.handleClick(i)} />
+    return <Square 
+      value={this.state.board[i]} 
+      onClick={() => this.handleClick(i)} 
+    />
   }
 
   handleClick(i) {
@@ -32,9 +37,9 @@ class GameBoard extends Component {
     this.setState({
       board: board,
       xTurn: !this.state.xTurn,
+      undoDisabled: false,
+      restartDisabled: false
     });
-
-    this.btn.removeAttribute("disabled");
   }
 
   handleRestart() {
@@ -45,9 +50,9 @@ class GameBoard extends Component {
     this.setState({ 
       board: board,
       xTurn: true, 
+      undoDisabled: true,
+      restartDisabled: true
     })
-
-    this.btn.removeAttribute("disabled");
   }
 
   handleUndo() {
@@ -58,16 +63,17 @@ class GameBoard extends Component {
       xTurn: !this.state.xTurn,
     });
 
-    this.btn.setAttribute("disabled", "disabled");
+    this.setState({
+      undoDisabled: true
+    });
   }
 
   render() {
     const win = winner(this.state.board);
-
     let turn;
     let gameStatus;
     if (win && win !== 'draw') {
-      turn = "Player " + win + " Wins!"
+      turn = "Player " + win.winner[0] + " Wins!"
       gameStatus = "Play Again!"
     } else if (win && win === 'draw') {
       turn = "It's a Draw!"
@@ -96,8 +102,22 @@ class GameBoard extends Component {
           {this.renderSquare(8)}
         </div>
         <div className="button-row">
-          <button ref={btn => { this.btn = btn; }} className="game-status" onClick={() => this.handleUndo()}>Undo Move</button>
-          <button className="game-status" onClick={() => this.handleRestart()}>{gameStatus}</button>
+          <button 
+            ref={undoBtn => { this.undoBtn = undoBtn; }} 
+            className="undo" 
+            onClick={() => this.handleUndo()}
+            disabled={this.state.undoDisabled}
+          >
+            Undo Move
+          </button>
+          <button 
+            ref={rematchBtn => { this.rematchBtn = rematchBtn; }} 
+            className="restart"
+            onClick={() => this.handleRestart()}
+            disabled={this.state.restartDisabled}
+          >
+            {gameStatus}
+          </button>
         </div>
       </div>
     )
@@ -119,7 +139,10 @@ function winner(board) {
   for (let i = 0; i < winCons.length; i++) {
     const [a, b, c] = winCons[i];
     if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-      return board[a];
+      return {
+        winner: board[a],
+        line: [a, b, c]
+      };
     }
   }
 

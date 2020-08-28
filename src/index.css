@@ -18,7 +18,7 @@ code {
   padding-bottom: 10px;
 }
 
-.game-status {
+.restart, .undo {
   height: 50px;
   width: 160px;
   border: 1px solid #fe5800;
@@ -30,17 +30,29 @@ code {
   border-radius: 10px;
 }
 
-.game-status:disabled {
+.restart:disabled, .undo:disabled {
   height: 50px;
   width: 160px;
   border: 1px solid #aaa;
-  background: #aaa;
+  background: #b9b9b9;
   color: #fff;
   font-size: 18px;
   font-weight: 600;
   margin: 10px;
   border-radius: 10px;
 }
+
+/* .rematch {
+  height: 50px;
+  width: 160px;
+  border: 1px solid #aaa;
+  background: rgb(86, 199, 33);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 10px;
+  border-radius: 10px;
+} */
 
 .board {
   width: 100vw;
@@ -75,3 +87,18 @@ code {
   margin: 10px;
   border-radius: 10px;
 }
+
+/* .winner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  width: 100px;
+  border: 1px solid #fe5800;
+  background: #fe5800;
+  color: #fff;
+  font-size: 40px;
+  font-weight: 600;
+  margin: 10px;
+  border-radius: 10px;
+} */
